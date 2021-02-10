@@ -10,9 +10,13 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "axios": "^0.21",
+        "babel-preset-preact": "^2.0.0",
         "laravel-mix": "^6.0.6",
-        "lodash": "^4.17.19",
         "postcss": "^8.1.14"
+    },
+    "dependencies": {
+        "axios": "^0.21.1",
+        "preact": "^10.5.12",
+        "redaxios": "^0.3.0"
     }
 }

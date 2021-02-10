@@ -63,7 +63,9 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
                                     <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                                    <a href="login.html" class="dropdown-item">Login & Register</a>
+                                    @guest
+                                    <a href="{{ route('auth') }}" class="dropdown-item">Login & Register</a>
+                                    @endguest
                                     <a href="contact.html" class="dropdown-item">Contact Us</a>
                                 </div>
                             </div>
@@ -124,6 +126,23 @@
             </div>
         </div>
         <!-- Bottom Bar End -->
+
+        {{-- Start Mail Notification bar --}}
+    @if (!is_null(auth()->user()))
+        @if (!auth()->user()->hasVerifiedEmail())
+            <div class="alert alert-warning" role="alert" style="margin-top: -15px;">
+                Email not Verified <a id="email-sender" href="{{ route('verification.send') }}">click here to resend</a>
+            </div>
+            <form id="email-form" action="{{ route('verification.send') }}" method="post" style="display: none;">
+                @csrf
+            </form>
+        @endif
+    @endif
+        {{-- End Mail Notification bar --}}
+
+        <!-- Breadcrumb Start -->
+        @yield("breadcrumb")
+        <!-- Breadcrumb End -->
 
         <!-- Content Body -->
         @yield("content")
@@ -208,6 +227,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous"></script>
         <script src="js/main.min.js"></script>
 
+        @stack("scripts")
         @livewireScripts
     </body>
 </html>

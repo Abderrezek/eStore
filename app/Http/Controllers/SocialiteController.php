@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
 {
@@ -47,7 +48,7 @@ class SocialiteController extends Controller
                 return redirect()->route("home");
             } else {
                 $userNewData = [
-                    'name' => $this->userName($provider, $data->getName()),
+                    // 'name' => $this->userName($provider, $data->getName()),
                     'email' => $data->getEmail(),
                     'password' => bcrypt('azertazert'),
                 ];
@@ -63,7 +64,8 @@ class SocialiteController extends Controller
                 }
                 $newUser = User::create($userNewData);
                 Auth::login($newUser);
-                return redirect()->route("my-account.update-password");
+                // return redirect()->route("my-account.update-password");
+                return redirect()->route("home");
             }
         }
 

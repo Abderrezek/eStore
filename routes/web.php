@@ -16,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/", fn () => view("home"))->name("home");
 
+Route::get("/auth", fn () => view("auths.auth"))->name("auth");
+
 Route::get("redirect/{provider}", [SocialiteController::class, "redirect"])->name("socialite.redirect");
 Route::get("callback/{provider}", [SocialiteController::class, "callback"])->name("socialite.callback");
+
+Route::fallback(fn () => view("404"));
